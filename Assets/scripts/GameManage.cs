@@ -77,6 +77,9 @@ public class GameManage : MonoBehaviour
                     }
                 }
             }
+
+            budget = saveData.current_budget;
+            money = saveData.current_money;
         }
     }
 }
