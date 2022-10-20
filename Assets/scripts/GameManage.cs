@@ -10,6 +10,12 @@ public class GameManage : MonoBehaviour
 {
     public static GameManage instance;
 
+    public string nameCountry;
+
+    public string nameCountryEnemy;
+
+    public string nameCountryFriend;
+
     public string attackedCountry;
 
     public string myCountry;

@@ -15,32 +15,30 @@ public class FightSimulator : MonoBehaviour
     IEnumerator Fight()
     {
         yield return new WaitForSeconds(0);
-        int powerCountryFriend = 0;
-        int powerCountryEnemy = 0;
 
-        print(GameManage.instance.attackedCountry);
+        print(GameManage.instance.powerCountry);
+        print(GameManage.instance.powerCountryFriend);
 
-        //int number = Random.Range(0, 5);
-        if (GameManage.instance.attackedCountry.Equals("country_3"))
+        if (GameManage.instance.attackedCountry.Equals(GameManage.instance.nameCountryEnemy)) 
         {
-            powerCountryEnemy = GameManage.instance.moneyBudget;
+           if(GameManage.instance.powerCountryEnemy >= GameManage.instance.powerCountry)
+           {
+                GameManage.instance.battleWon = false;
+           } else
+           {
+                GameManage.instance.battleWon = true;
+           }
         }
-
-        if (GameManage.instance.attackedCountry.Equals("country_2"))
+        else if (GameManage.instance.attackedCountry.Equals(GameManage.instance.nameCountryFriend))
         {
-            powerCountryFriend = GameManage.instance.moneyBudget;
-        }
-
-        print(powerCountryFriend);
-        print(powerCountryEnemy);
-
-        if (GameManage.instance.powerCountry <= powerCountryFriend)
-        {
-          GameManage.instance.battleWon = false;
-        }
-        else
-        {
-          GameManage.instance.battleWon = true;
+            if (GameManage.instance.powerCountryFriend >= GameManage.instance.powerCountry)
+            {
+                GameManage.instance.battleWon = false;
+            }
+            else
+            {
+                GameManage.instance.battleWon = true;
+            }
         }
 
         GameManage.instance.battleHasEnded = true;

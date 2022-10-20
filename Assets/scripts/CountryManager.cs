@@ -28,14 +28,18 @@ public class CountryManager : MonoBehaviour
             if (countryHandler.country.tribe == Country.tribes.PLAYER && GameManage.instance.startMoneyBudget == 0)
             {
                 GameManage.instance.startMoneyBudget = countryHandler.country.moneyBudzet;
-                print(GameManage.instance.startMoneyReward);
                 GameManage.instance.startMoneyReward = countryHandler.country.moneyRewards;
+                GameManage.instance.nameCountry = countryHandler.country.name;
+
             } else if (countryHandler.country.tribe == Country.tribes.FRIEND && GameManage.instance.powerCountryFriend == 0)
             {
                 GameManage.instance.powerCountryFriend = (countryHandler.country.moneyBudzet + countryHandler.country.moneyRewards);
+                GameManage.instance.nameCountryFriend = countryHandler.country.name;
+
             } else if (countryHandler.country.tribe == Country.tribes.ENEMY && GameManage.instance.powerCountryEnemy == 0)
             {
                 GameManage.instance.powerCountryEnemy = (countryHandler.country.moneyBudzet + countryHandler.country.moneyRewards);
+                GameManage.instance.nameCountryEnemy = countryHandler.country.name;
             }
         }
 
