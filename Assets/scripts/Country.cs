@@ -18,4 +18,7 @@ public class Country
     public int moneyBudzet;
 
     public int moneyRewards;
+
+    public int powerCountry;
+
 }

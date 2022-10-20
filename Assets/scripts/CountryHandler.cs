@@ -24,7 +24,8 @@ public class CountryHandler : MonoBehaviour {
         oldColor32 = spriteRenderer.color;
         if (country.tribe == Country.tribes.PLAYER)
         {
-            hoverColor32 = oldColor32;
+            hoverColor32 = new Color32(255, 255, 255, 255);
+            spriteRenderer.color = hoverColor32;
         } else
         {
             hoverColor32 = new Color32(oldColor32.r, oldColor32.g, oldColor32.b, 255);
@@ -45,11 +46,8 @@ public class CountryHandler : MonoBehaviour {
 
     void OnMouseUpAsButton()
     {
-        if (country.tribe != Country.tribes.PLAYER)
-        {
-            ShowGUI();
-        }
-     
+        ShowGUI();
+
     }
 
     public void TintedCountry(Color32 color32)
@@ -59,8 +57,12 @@ public class CountryHandler : MonoBehaviour {
 
     void ShowGUI()
     {
-        CountryManager.instance.ShowPanelAttack("This Country is owned " + 
+            CountryManager.instance.ShowPanelAttack("This Country is owned " +
             country.tribe.ToString() + " . Are you sure? Do you want attack?"
-            , country.moneyRewards);
+            , country.moneyRewards, GameManage.instance.powerCountry, country.powerCountry);
+            GameManage.instance.attackedCountry = country.name;
+            GameManage.instance.battleHasEnded = false;
+            GameManage.instance.battleWon = false;
+        
     }
 }

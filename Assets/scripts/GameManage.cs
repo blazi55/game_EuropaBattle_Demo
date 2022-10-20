@@ -4,6 +4,7 @@ using UnityEngine;
 
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class GameManage : MonoBehaviour
 {
@@ -11,19 +12,33 @@ public class GameManage : MonoBehaviour
 
     public string attackedCountry;
 
+    public string myCountry;
+
     public bool battleHasEnded;
 
     public bool battleWon;
 
-    public int money;
-    public int budget;
+    public int moneyReward;
+
+    public int moneyBudget;
+
+    public int powerCountry;
+
+    public int startMoneyBudget;
+
+    public int startMoneyReward;
+
+    public int powerCountryFriend;
+
+    public int powerCountryEnemy;
 
     [System.Serializable]
     public class SaveData
     {
         public List<Country> countryList = new List<Country>();
-        public int current_money;
-        public int current_budget;
+        public int current_moneyReward;
+        public int current_moneyBudget;
+        public int current_powerCountry;
     }
     
     void Awake()
@@ -47,11 +62,13 @@ public class GameManage : MonoBehaviour
                 .Add(CountryManager.instance.countries[i].GetComponent<CountryHandler>().country);
         }
 
-        saveData.current_budget = budget;
-        saveData.current_money = money;
+        saveData.current_moneyBudget = moneyBudget;
+        saveData.current_moneyReward = moneyReward;
+        powerCountry = (moneyReward + moneyBudget);
+        saveData.current_powerCountry = powerCountry;
 
         BinaryFormatter binaryFormatter = new BinaryFormatter();
-        FileStream fileStream = new FileStream(Application.persistentDataPath + "/SaveFile.octo", FileMode.Create);
+        FileStream fileStream = new FileStream(Application.persistentDataPath + "/SavedFile.octo", FileMode.Create);
 
         binaryFormatter.Serialize(fileStream, saveData);
         fileStream.Close();
@@ -60,7 +77,7 @@ public class GameManage : MonoBehaviour
 
     public void Loading()
     {
-        if(File.Exists(Application.persistentDataPath + "/SaveFile.octo"))
+        if(File.Exists(Application.persistentDataPath + "/SavedFile.octo"))
         {
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             FileStream fileStream = new FileStream(Application.persistentDataPath + "/SavedFile.octo", FileMode.Open);
@@ -78,8 +95,31 @@ public class GameManage : MonoBehaviour
                 }
             }
 
-            budget = saveData.current_budget;
-            money = saveData.current_money;
+            moneyBudget = saveData.current_moneyBudget;
+            moneyReward = saveData.current_moneyReward;
+            powerCountry = saveData.current_powerCountry;
+
+            CountryManager.instance.TintCounteries();
+            print("Loaded");
+        }
+        else
+        {
+            print("No saved game :(");
+        }
+    }
+
+    public void DeleteSavedFile()
+    {
+        if (File.Exists(Application.persistentDataPath + "/SavedFile.octo"))
+        {
+            Loading();
+            moneyBudget = startMoneyBudget;
+            moneyReward = startMoneyReward;
+            powerCountry = (moneyBudget + moneyReward);
+
+            File.Delete(Application.persistentDataPath + "/SavedFile.octo");
+            print("Deleted Saved File");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }

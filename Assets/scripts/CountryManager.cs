@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEngine.SceneManagement;
+
 public class CountryManager : MonoBehaviour
 {
     public static CountryManager instance;
@@ -18,11 +20,38 @@ public class CountryManager : MonoBehaviour
     void Start()
     {
         attackPanel.SetActive(false);
-        AddCountryData();
 
+        AddCountryData();
+        for(int i = 0; i < countries.Count; i++)
+        {
+            CountryHandler countryHandler = countries[i].GetComponent<CountryHandler>();
+            if (countryHandler.country.tribe == Country.tribes.PLAYER && GameManage.instance.startMoneyBudget == 0)
+            {
+                GameManage.instance.startMoneyBudget = countryHandler.country.moneyBudzet;
+                print(GameManage.instance.startMoneyReward);
+                GameManage.instance.startMoneyReward = countryHandler.country.moneyRewards;
+            } else if (countryHandler.country.tribe == Country.tribes.FRIEND && GameManage.instance.powerCountryFriend == 0)
+            {
+                GameManage.instance.powerCountryFriend = (countryHandler.country.moneyBudzet + countryHandler.country.moneyRewards);
+            } else if (countryHandler.country.tribe == Country.tribes.ENEMY && GameManage.instance.powerCountryEnemy == 0)
+            {
+                GameManage.instance.powerCountryEnemy = (countryHandler.country.moneyBudzet + countryHandler.country.moneyRewards);
+            }
+        }
+
+        if (GameManage.instance.battleHasEnded && GameManage.instance.battleWon)
+        {
+            CountryHandler count = GameObject.Find(GameManage.instance.attackedCountry).GetComponent<CountryHandler>();
+            count.country.tribe = Country.tribes.PLAYER;
+            GameManage.instance.moneyBudget += count.country.moneyBudzet;
+            GameManage.instance.moneyReward += count.country.moneyRewards;
+            GameManage.instance.powerCountry += count.country.powerCountry;
+            TintCounteries();
+        }
+        GameManage.instance.Saving();
     }
 
-    void AddCountryData()
+    public void AddCountryData()
     {
         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Country") as GameObject[];
 
@@ -31,10 +60,11 @@ public class CountryManager : MonoBehaviour
             countries.Add(game);
         }
 
+        GameManage.instance.Loading();
         TintCounteries();
     }
 
-    void TintCounteries()
+    public void TintCounteries()
     {
         for(int i = 0; i < countries.Count; i++)
         {
@@ -55,16 +85,30 @@ public class CountryManager : MonoBehaviour
         }
     }
 
-    public void ShowPanelAttack(string description, int moneyReward)
+    public void ShowPanelAttack(string description, int moneyReward, int powerOurCountry, int powerAnotherCountry)
     {
         attackPanel.SetActive(true);
         AttackPanel gui = attackPanel.GetComponent<AttackPanel>();
+        powerOurCountry = GameManage.instance.powerCountry;
         gui.descriptionText.text = description.ToString();
         gui.moneyReward.text = "+ " + moneyReward.ToString() + " $";
+        gui.powerCountry.text = "+ " + powerOurCountry.ToString();
+        gui.powerAnotherCountry.text = "+ " + powerAnotherCountry.ToString();
     }
 
     public void DisablePanelAttack()
     {
         attackPanel.SetActive(false);
+    }
+
+    public void ResetGame()
+    {
+        GameManage.instance.DeleteSavedFile();
+        attackPanel.SetActive(false);
+    }
+
+    public void StartFight()
+    {
+        SceneManager.LoadScene("FightSimulator");
     }
 }
