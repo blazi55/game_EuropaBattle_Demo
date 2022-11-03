@@ -10,11 +10,11 @@ public class GameManage : MonoBehaviour
 {
     public static GameManage instance;
 
-    public string nameCountry;
+    public List<string> nameCountry;
 
-    public string nameCountryEnemy;
+    public List<string> nameCountryEnemy;
 
-    public string nameCountryFriend;
+    public List<string> nameCountryFriend;
 
     public string attackedCountry;
 
@@ -38,6 +38,10 @@ public class GameManage : MonoBehaviour
 
     public int powerCountryEnemy;
 
+    public int allCostRegionEnemy;
+
+    public int allCostRegionFriend;
+
     [System.Serializable]
     public class SaveData
     {
@@ -45,6 +49,10 @@ public class GameManage : MonoBehaviour
         public int current_moneyReward;
         public int current_moneyBudget;
         public int current_powerCountry;
+
+        public List<string> nameCountry;
+        public List<string> nameCountryEnemy;
+        public List<string> nameCountryFriend;
     }
     
     void Awake()

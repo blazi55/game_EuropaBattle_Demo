@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class AttackPanel : MonoBehaviour
 {
+    public Text titleText;
     public Text moneyReward;
     public Text descriptionText;
     public Text powerCountry;

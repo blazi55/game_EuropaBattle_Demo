@@ -16,7 +16,7 @@ public class CountryHandler : MonoBehaviour {
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         //spriteRenderer.color = startColor32;
-        
+
     }
     
     void OnMouseEnter()
@@ -24,11 +24,11 @@ public class CountryHandler : MonoBehaviour {
         oldColor32 = spriteRenderer.color;
         if (country.tribe == Country.tribes.PLAYER)
         {
-            hoverColor32 = new Color32(255, 255, 255, 255);
+            hoverColor32 = new Color32(255, 255, 255, 190);
             spriteRenderer.color = hoverColor32;
         } else
         {
-            hoverColor32 = new Color32(oldColor32.r, oldColor32.g, oldColor32.b, 255);
+            hoverColor32 = new Color32(oldColor32.r, oldColor32.g, oldColor32.b, 190);
             spriteRenderer.color = hoverColor32;
         }
     }
@@ -57,12 +57,48 @@ public class CountryHandler : MonoBehaviour {
 
     void ShowGUI()
     {
-            CountryManager.instance.ShowPanelAttack("This Country is owned " +
-            country.tribe.ToString() + " . Are you sure? Do you want attack?"
-            , country.moneyRewards, GameManage.instance.powerCountry, country.powerCountry);
-            GameManage.instance.attackedCountry = country.name;
-            GameManage.instance.battleHasEnded = false;
-            GameManage.instance.battleWon = false;
-        
+        if (Country.tribes.PLAYER == country.tribe)
+        { 
+           if (GameManage.instance.nameCountry.Count.Equals(8))
+           {
+               CountryManager.instance.ShowEndWonPanel();
+           } 
+           else
+           {
+               CountryManager.instance.ShowPanelAttack("Change our Country!", "This Country is owned " +
+               country.tribe.ToString() + " . Are you sure? Do you want attack?"
+               , country.moneyRewards, GameManage.instance.powerCountry, country.powerCountry);
+           }
+            
+        } else if (Country.tribes.ENEMY == country.tribe)
+        {
+            if (GameManage.instance.nameCountry.Count.Equals(0))
+            {
+                CountryManager.instance.ShowEndLostPanel();
+            }
+            else
+            {
+                CountryManager.instance.ShowPanelAttack("Start War!", "This Country is owned " +
+                country.tribe.ToString() + " . Are you sure? Do you want attack?"
+                , country.moneyRewards, GameManage.instance.powerCountry, GameManage.instance.powerCountryEnemy);
+            }
+        } else
+        {
+            if (GameManage.instance.nameCountry.Count.Equals(0))
+            {
+                CountryManager.instance.ShowEndLostPanel();
+
+            }
+            else
+            {
+                CountryManager.instance.ShowPanelAttack("Start War!", "This Country is owned " +
+                country.tribe.ToString() + " . Are you sure? Do you want attack?"
+                , country.moneyRewards, GameManage.instance.powerCountry, GameManage.instance.powerCountryFriend);
+            }
+        }
+        GameManage.instance.attackedCountry = country.name;
+        GameManage.instance.battleHasEnded = false;
+        GameManage.instance.battleWon = false;
+
     }
 }
