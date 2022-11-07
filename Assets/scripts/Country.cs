@@ -6,18 +6,23 @@ using UnityEngine;
 public class Country
 {
     public string name;
-    public enum tribes
+    public enum countriesNames
     {
-        ENEMY,
-        FRIEND,
-        PLAYER
+        UNERIA,
+        IMBERIAS,
+        WALAH,
+        NOTICS,
+        ORENBERG,
+        PLUTORAN,
+        POLLON,
+        UTOCAR
     }
 
-    public tribes tribe;
+    public countriesNames countryName;
 
-    public int moneyBudzet;
+    public int countCity;
 
-    public int moneyRewards;
+    public int areaCountry;
 
     public int powerCountry;
 

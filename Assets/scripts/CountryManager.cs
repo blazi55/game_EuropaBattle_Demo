@@ -35,34 +35,45 @@ public class CountryManager : MonoBehaviour
 
     public void SetPowerCountry()
     {
-        GameManage.instance.powerCountry = 0;
-        GameManage.instance.powerCountryEnemy = 0;
-        GameManage.instance.powerCountryFriend = 0;
-        GameManage.instance.allCostRegionEnemy = 0;
-        GameManage.instance.allCostRegionFriend = 0;
-        GameManage.instance.startMoneyReward = 0;
-        GameManage.instance.moneyReward = 0;
+        GameManage.instance.powerOurCountry = 0;
 
-        if(GameManage.instance.powerCountry == 0 || GameManage.instance.powerCountryEnemy == 0 
-            || GameManage.instance.powerCountryFriend == 0)
+        if(GameManage.instance.powerOurCountry == 0)
         for (int i = 0; i < countries.Count; i++)
         {
             CountryHandler countryHandler = countries[i].GetComponent<CountryHandler>();
-            if (countryHandler.country.tribe == Country.tribes.PLAYER)
+            if (countryHandler.country.countryName == Country.countriesNames.WALAH)
             {
-               GameManage.instance.startMoneyBudget += countryHandler.country.moneyBudzet;
-               GameManage.instance.startMoneyReward += countryHandler.country.moneyRewards;
+               GameManage.instance.startAreaCountry = countryHandler.country.areaCountry;
+               GameManage.instance.startCountCity = countryHandler.country.countCity;
             }
-            else if (countryHandler.country.tribe == Country.tribes.FRIEND)
+            else if (countryHandler.country.countryName == Country.countriesNames.ORENBERG)
             {
-                GameManage.instance.powerCountryFriend += (countryHandler.country.moneyBudzet + countryHandler.country.moneyRewards);
-                GameManage.instance.allCostRegionFriend += countryHandler.country.moneyRewards;
+                GameManage.instance.powerCountryORENBERG = (countryHandler.country.areaCountry + countryHandler.country.countCity);
             }
-            else if (countryHandler.country.tribe == Country.tribes.ENEMY)
+            else if (countryHandler.country.countryName == Country.countriesNames.PLUTORAN)
             {
-                GameManage.instance.powerCountryEnemy += (countryHandler.country.moneyBudzet + countryHandler.country.moneyRewards);
-                    GameManage.instance.allCostRegionEnemy += countryHandler.country.moneyRewards;
-                }
+                GameManage.instance.powerCountryPLUTORAN = (countryHandler.country.areaCountry + countryHandler.country.countCity);
+            }
+            else if (countryHandler.country.countryName == Country.countriesNames.POLLON)
+            {
+                GameManage.instance.powerCountryPOLLON = (countryHandler.country.areaCountry + countryHandler.country.countCity);
+            }
+            else if (countryHandler.country.countryName == Country.countriesNames.UNERIA)
+            {
+                GameManage.instance.powerCountryUNERIA = (countryHandler.country.areaCountry + countryHandler.country.countCity);
+            }
+            else if (countryHandler.country.countryName == Country.countriesNames.UTOCAR)
+            {
+                GameManage.instance.powerCountryUTOCAR = (countryHandler.country.areaCountry + countryHandler.country.countCity);
+            }
+            else if (countryHandler.country.countryName == Country.countriesNames.NOTICS)
+            {
+                GameManage.instance.powerCountryNOTICS = (countryHandler.country.areaCountry + countryHandler.country.countCity);
+            }
+            else if (countryHandler.country.countryName == Country.countriesNames.IMBERIAS)
+            {
+                GameManage.instance.powerCountryIMBERIAS = (countryHandler.country.areaCountry + countryHandler.country.countCity);
+            }
         }
     }
 
@@ -71,10 +82,10 @@ public class CountryManager : MonoBehaviour
         if (GameManage.instance.battleHasEnded && GameManage.instance.battleWon)
         {
             CountryHandler count = GameObject.Find(GameManage.instance.attackedCountry).GetComponent<CountryHandler>();
-            count.country.tribe = Country.tribes.PLAYER;
-            GameManage.instance.moneyBudget += (count.country.moneyBudzet/2);
-            GameManage.instance.moneyReward += (count.country.moneyRewards/2);
-            GameManage.instance.powerCountry += (count.country.powerCountry/2);
+            count.country.countryName = Country.countriesNames.WALAH;
+            GameManage.instance.countCity += count.country.countCity;
+            GameManage.instance.areaCountry += count.country.areaCountry;
+            GameManage.instance.powerOurCountry += count.country.powerCountry;
             TintCounteries();
         }
     }
@@ -85,30 +96,68 @@ public class CountryManager : MonoBehaviour
         {
             CountryHandler count = GameObject.Find(GameManage.instance.attackedCountry).GetComponent<CountryHandler>();
             int number = 0;
-            if (GameManage.instance.nameCountry.Count > 0)
+            if (GameManage.instance.nameOurCountry.Count > 0)
             {
-                number = Random.Range(0, GameManage.instance.nameCountry.Count);
+                number = Random.Range(0, GameManage.instance.nameOurCountry.Count);
             }
             print(number + "Lost");
-            print(GameManage.instance.nameCountry[number] + "Lost");
+            print(GameManage.instance.nameOurCountry[number] + "Lost");
 
-            if (count.country.tribe == Country.tribes.FRIEND)
+            if (count.country.countryName == Country.countriesNames.ORENBERG)
             {
-                CountryHandler result = GameObject.Find(GameManage.instance.nameCountry[number]).GetComponent<CountryHandler>();
-                result.country.tribe = Country.tribes.FRIEND;
-                GameManage.instance.nameCountryFriend.Add(GameManage.instance.nameCountry[number]);
-                GameManage.instance.nameCountry.Remove(GameManage.instance.nameCountry[number]);
-                GameManage.instance.powerCountry -= 20;
-                print(GameManage.instance.powerCountry);
+                CountryHandler result = GameObject.Find(GameManage.instance.nameOurCountry[number]).GetComponent<CountryHandler>();
+                result.country.countryName = Country.countriesNames.ORENBERG;
+                GameManage.instance.nameCountryORENBERG.Add(GameManage.instance.nameOurCountry[number]);
+                GameManage.instance.nameCountryORENBERG.Remove(GameManage.instance.nameOurCountry[number]);
+                print(GameManage.instance.powerOurCountry);
                 TintCounteries();
             }
-            else if (count.country.tribe == Country.tribes.ENEMY)
+            else if (count.country.countryName == Country.countriesNames.PLUTORAN)
             {
-                CountryHandler result = GameObject.Find(GameManage.instance.nameCountry[number]).GetComponent<CountryHandler>();
-                result.country.tribe = Country.tribes.ENEMY;
-                GameManage.instance.nameCountryEnemy.Add(GameManage.instance.nameCountry[number]);
-                GameManage.instance.nameCountry.Remove(GameManage.instance.nameCountry[number]);
-                GameManage.instance.powerCountry -= 20;
+                CountryHandler result = GameObject.Find(GameManage.instance.nameOurCountry[number]).GetComponent<CountryHandler>();
+                result.country.countryName = Country.countriesNames.PLUTORAN;
+                GameManage.instance.nameCountryPLUTORAN.Add(GameManage.instance.nameOurCountry[number]);
+                GameManage.instance.nameCountryPLUTORAN.Remove(GameManage.instance.nameOurCountry[number]);
+                TintCounteries();
+            }
+            else if (count.country.countryName == Country.countriesNames.UTOCAR)
+            {
+                CountryHandler result = GameObject.Find(GameManage.instance.nameOurCountry[number]).GetComponent<CountryHandler>();
+                result.country.countryName = Country.countriesNames.UTOCAR;
+                GameManage.instance.nameCountryUTOCAR.Add(GameManage.instance.nameOurCountry[number]);
+                GameManage.instance.nameCountryUTOCAR.Remove(GameManage.instance.nameOurCountry[number]);
+                TintCounteries();
+            }
+            else if (count.country.countryName == Country.countriesNames.UNERIA)
+            {
+                CountryHandler result = GameObject.Find(GameManage.instance.nameOurCountry[number]).GetComponent<CountryHandler>();
+                result.country.countryName = Country.countriesNames.UNERIA;
+                GameManage.instance.nameCountryUNERIA.Add(GameManage.instance.nameOurCountry[number]);
+                GameManage.instance.nameCountryUNERIA.Remove(GameManage.instance.nameOurCountry[number]);
+                TintCounteries();
+            }
+            else if (count.country.countryName == Country.countriesNames.NOTICS)
+            {
+                CountryHandler result = GameObject.Find(GameManage.instance.nameOurCountry[number]).GetComponent<CountryHandler>();
+                result.country.countryName = Country.countriesNames.NOTICS;
+                GameManage.instance.nameCountryNOTICS.Add(GameManage.instance.nameOurCountry[number]);
+                GameManage.instance.nameCountryNOTICS.Remove(GameManage.instance.nameOurCountry[number]);
+                TintCounteries();
+            }
+            else if (count.country.countryName == Country.countriesNames.POLLON)
+            {
+                CountryHandler result = GameObject.Find(GameManage.instance.nameOurCountry[number]).GetComponent<CountryHandler>();
+                result.country.countryName = Country.countriesNames.POLLON;
+                GameManage.instance.nameCountryPOLLON.Add(GameManage.instance.nameOurCountry[number]);
+                GameManage.instance.nameCountryPOLLON.Remove(GameManage.instance.nameOurCountry[number]);
+                TintCounteries();
+            }
+            else if (count.country.countryName == Country.countriesNames.IMBERIAS)
+            {
+                CountryHandler result = GameObject.Find(GameManage.instance.nameOurCountry[number]).GetComponent<CountryHandler>();
+                result.country.countryName = Country.countriesNames.IMBERIAS;
+                GameManage.instance.nameCountryIMBERIAS.Add(GameManage.instance.nameOurCountry[number]);
+                GameManage.instance.nameCountryIMBERIAS.Remove(GameManage.instance.nameOurCountry[number]);
                 TintCounteries();
             }
         }
@@ -129,34 +178,70 @@ public class CountryManager : MonoBehaviour
 
     public void AddGameNamesCountries()
     {
-        HashSet<string> nameEnemyCountry = new HashSet<string>();
-        HashSet<string> nameFriendCountry = new HashSet<string>();
+
+        HashSet<string> nameCountryORENBERG = new HashSet<string>();
+        HashSet<string> nameCountryIMBERIAS = new HashSet<string>();
+        HashSet<string> nameCountryUNERIA = new HashSet<string>();
+        HashSet<string> nameCountryPOLLON = new HashSet<string>();
+        HashSet<string> nameCountryNOTICS = new HashSet<string>();
         HashSet<string> nameOurCountry = new HashSet<string>();
+        HashSet<string> nameCountryUTOCAR = new HashSet<string>();
+        HashSet<string> nameCountryPLUTORAN = new HashSet<string>();
 
         for (int i = 0; i < countries.Count; i++)
         {
             CountryHandler countryHandler = countries[i].GetComponent<CountryHandler>();
-            if (countryHandler.country.tribe == Country.tribes.PLAYER)
+            if (countryHandler.country.countryName == Country.countriesNames.WALAH)
             {
                 nameOurCountry.Add(countryHandler.country.name);
             }
-            else if (countryHandler.country.tribe == Country.tribes.FRIEND)
+            else if (countryHandler.country.countryName == Country.countriesNames.ORENBERG)
             {
-                nameFriendCountry.Add(countryHandler.country.name);
-            } 
-            else
+                nameCountryORENBERG.Add(countryHandler.country.name);
+            }
+            else if (countryHandler.country.countryName == Country.countriesNames.PLUTORAN)
             {
-                nameEnemyCountry.Add(countryHandler.country.name);
+                nameCountryPLUTORAN.Add(countryHandler.country.name);
+            }
+            else if (countryHandler.country.countryName == Country.countriesNames.UTOCAR)
+            {
+                nameCountryUTOCAR.Add(countryHandler.country.name);
+            }
+            else if (countryHandler.country.countryName == Country.countriesNames.UNERIA)
+            {
+                nameCountryUNERIA.Add(countryHandler.country.name);
+            }
+            else if (countryHandler.country.countryName == Country.countriesNames.NOTICS)
+            {
+                nameCountryNOTICS.Add(countryHandler.country.name);
+            }
+            else if (countryHandler.country.countryName == Country.countriesNames.POLLON)
+            {
+                nameCountryPOLLON.Add(countryHandler.country.name);
+            }
+            else if (countryHandler.country.countryName == Country.countriesNames.IMBERIAS)
+            {
+                nameCountryIMBERIAS.Add(countryHandler.country.name);
             }
         }
 
         List<string> listOurCountry = new List<string>(nameOurCountry);
-        List<string> listEnemyCountry = new List<string>(nameEnemyCountry);
-        List<string> listFriendCountry = new List<string>(nameFriendCountry);
+        List<string> listCountryORENBERG = new List<string>(nameCountryORENBERG);
+        List<string> listCountryIMBERIAS = new List<string>(nameCountryIMBERIAS);
+        List<string> listCountryUNERIA = new List<string>(nameCountryUNERIA);
+        List<string> listCountryPOLLON = new List<string>(nameCountryPOLLON);
+        List<string> listCountryNOTICS = new List<string>(nameCountryNOTICS);
+        List<string> listCountryUTOCAR = new List<string>(nameCountryUTOCAR);
+        List<string> listCountryPLUTORAN = new List<string>(nameCountryPLUTORAN);
 
-        GameManage.instance.nameCountry = listOurCountry;
-        GameManage.instance.nameCountryEnemy = listEnemyCountry;
-        GameManage.instance.nameCountryFriend = listFriendCountry;
+        GameManage.instance.nameOurCountry = listOurCountry;
+        GameManage.instance.nameCountryORENBERG = listCountryORENBERG;
+        GameManage.instance.nameCountryIMBERIAS = listCountryIMBERIAS;
+        GameManage.instance.nameCountryNOTICS = listCountryNOTICS;
+        GameManage.instance.nameCountryPLUTORAN = listCountryPLUTORAN;
+        GameManage.instance.nameCountryPOLLON = listCountryPOLLON;
+        GameManage.instance.nameCountryUTOCAR = listCountryUTOCAR;
+        GameManage.instance.nameCountryUNERIA = listCountryUNERIA;
     }
 
     public void TintCounteries()
@@ -165,17 +250,37 @@ public class CountryManager : MonoBehaviour
         {
             CountryHandler countryHandler = countries[i].GetComponent<CountryHandler>();
 
-            if(countryHandler.country.tribe == Country.tribes.ENEMY)
+            if(countryHandler.country.countryName == Country.countriesNames.PLUTORAN)
             {
-                countryHandler.TintedCountry(new Color32(225, 0, 0, 155));
+                countryHandler.TintedCountry(new Color32(255, 204, 102, 155));
 
-            } else if (countryHandler.country.tribe == Country.tribes.PLAYER)
+            } else if (countryHandler.country.countryName == Country.countriesNames.WALAH)
             {
                 countryHandler.TintedCountry(new Color32(0, 75, 0, 155));
 
-            } else if (countryHandler.country.tribe == Country.tribes.FRIEND)
+            } else if (countryHandler.country.countryName == Country.countriesNames.ORENBERG)
             {
-                countryHandler.TintedCountry(new Color32(225, 225, 0, 155));
+                countryHandler.TintedCountry(new Color32(153, 153, 102, 155));
+            }
+            else if (countryHandler.country.countryName == Country.countriesNames.NOTICS)
+            {
+                countryHandler.TintedCountry(new Color32(0, 51, 204, 155));
+            }
+            else if (countryHandler.country.countryName == Country.countriesNames.UTOCAR)
+            {
+                countryHandler.TintedCountry(new Color32(0, 204, 255, 155));
+            }
+            else if (countryHandler.country.countryName == Country.countriesNames.IMBERIAS)
+            {
+                countryHandler.TintedCountry(new Color32(255, 153, 0, 155));
+            }
+            else if (countryHandler.country.countryName == Country.countriesNames.POLLON)
+            {
+                countryHandler.TintedCountry(new Color32(204, 51, 255, 155));
+            }
+            else if (countryHandler.country.countryName == Country.countriesNames.UNERIA)
+            {
+                countryHandler.TintedCountry(new Color32(153, 102, 255, 155));
             }
         }
     }
@@ -187,8 +292,8 @@ public class CountryManager : MonoBehaviour
         AttackPanel gui = attackPanel.GetComponent<AttackPanel>();
         gui.titleText.text = "We have all the world!";
         gui.descriptionText.text = "";
-        gui.powerCountry.text = "+ " + GameManage.instance.powerCountry.ToString();
-        gui.moneyReward.text = "";
+        gui.powerCountry.text = "+ " + GameManage.instance.powerOurCountry.ToString();
+        gui.cityOurCountry.text = GameManage.instance.countCity.ToString();
         gui.powerAnotherCountry.text = "+ 0";
     }
 
@@ -200,19 +305,20 @@ public class CountryManager : MonoBehaviour
         gui.titleText.text = "We are lost!";
         gui.descriptionText.text = "Our Country is dead";
         gui.powerCountry.text = "";
-        gui.moneyReward.text = "";
+        gui.cityOurCountry.text = GameManage.instance.countCity.ToString();
         gui.powerAnotherCountry.text = "";
     }
 
-    public void ShowPanelAttack(string title, string description, int moneyReward, int powerOurCountry, int powerAnotherCountry)
+    public void ShowPanelAttack(string title, string description, int cityOtherCountry, int cityOurCountry, int powerOurCountry, int powerAnotherCountry)
     {
         DisableCountries();
         attackPanel.SetActive(true);
         AttackPanel gui = attackPanel.GetComponent<AttackPanel>();
-        powerOurCountry = GameManage.instance.powerCountry;
+        powerOurCountry = GameManage.instance.powerOurCountry;
         gui.titleText.text = title.ToString();
         gui.descriptionText.text = description.ToString();
-        gui.moneyReward.text = "+ " + moneyReward.ToString() + " $";
+        gui.cityOtherCountry.text = "+ " + cityOtherCountry.ToString();
+        gui.cityOurCountry.text = "+ " + cityOurCountry.ToString();
         gui.powerCountry.text = "+ " + powerOurCountry.ToString();
         gui.powerAnotherCountry.text = "+ " + powerAnotherCountry.ToString();
     }
@@ -242,18 +348,15 @@ public class CountryManager : MonoBehaviour
     public void ResetGame()
     {
         GameManage.instance.DeleteSavedFile();
+        GameManage.instance.areaCountry =  GameManage.instance.startAreaCountry;
+        GameManage.instance.countCity = GameManage.instance.startCountCity; ;
         attackPanel.SetActive(false);
-        GameManage.instance.powerCountry = 660;
-        GameManage.instance.startMoneyBudget = 0;
-        GameManage.instance.moneyBudget = 660;
-        GameManage.instance.allCostRegionEnemy = 0;
-        GameManage.instance.allCostRegionFriend = 0;
         ActiveCountries();
     }
 
     public void StartFight()
     {
-        if(GameManage.instance.nameCountry.Count > 0 || GameManage.instance.nameCountry.Count == 8)
+        if(GameManage.instance.nameOurCountry.Count > 0 || GameManage.instance.nameOurCountry.Count == 8)
         {
             SceneManager.LoadScene("FightSimulator");
         }

@@ -15,31 +15,16 @@ public class FightSimulator : MonoBehaviour
     IEnumerator Fight()
     {
         yield return new WaitForSeconds(0);
-        int number = Random.Range(0, 2);
 
-        print(GameManage.instance.powerCountry);
-        print(GameManage.instance.powerCountryFriend);
-        print("Cost: " + GameManage.instance.allCostRegionEnemy);
-        print("Cost: " + GameManage.instance.allCostRegionFriend);
+        print(GameManage.instance.powerOurCountry);
 
-        for (int i = 0; i < GameManage.instance.nameCountryEnemy.Count; i++)
+        for (int i = 0; i < GameManage.instance.nameCountryIMBERIAS.Count; i++)
         {
-            if (GameManage.instance.attackedCountry.Equals(GameManage.instance.nameCountryEnemy[i]))
+            if (GameManage.instance.attackedCountry.Equals(GameManage.instance.nameCountryIMBERIAS[i]))
             {
-                if ((GameManage.instance.powerCountryEnemy - GameManage.instance.allCostRegionEnemy) > GameManage.instance.powerCountry)
+                if (GameManage.instance.powerCountryIMBERIAS > GameManage.instance.powerOurCountry)
                 {
                     GameManage.instance.battleWon = false;
-                }
-                else if ((GameManage.instance.powerCountryEnemy - GameManage.instance.allCostRegionEnemy) == GameManage.instance.powerCountry)
-                {
-                    if (number == 2)
-                    {
-                        GameManage.instance.battleWon = true;
-                    }
-                    else
-                    {
-                        GameManage.instance.battleWon = false;
-                    }
                 }
                 else
                 {
@@ -47,24 +32,83 @@ public class FightSimulator : MonoBehaviour
                 }
             }
         }
-        for (int i = 0; i < GameManage.instance.nameCountryFriend.Count; i++)
+        for (int i = 0; i < GameManage.instance.nameCountryORENBERG.Count; i++)
         {
-            if (GameManage.instance.attackedCountry.Equals(GameManage.instance.nameCountryFriend[i]))
+            if (GameManage.instance.attackedCountry.Equals(GameManage.instance.nameCountryORENBERG[i]))
             {
-                if ((GameManage.instance.powerCountryFriend - GameManage.instance.allCostRegionFriend) > GameManage.instance.powerCountry)
+                if (GameManage.instance.powerCountryORENBERG > GameManage.instance.powerOurCountry)
                 {
                     GameManage.instance.battleWon = false;
                 }
-                else if ((GameManage.instance.powerCountryFriend - GameManage.instance.allCostRegionFriend) == GameManage.instance.powerCountry)
+                else
                 {
-                    if (number >= 1)
-                    {
-                        GameManage.instance.battleWon = false;
-                    }
-                    else if (number == 0)
-                    {
-                        GameManage.instance.battleWon = true;
-                    }
+                    GameManage.instance.battleWon = true;
+                }
+            }
+        }
+        for (int i = 0; i < GameManage.instance.nameCountryNOTICS.Count; i++)
+        {
+            if (GameManage.instance.attackedCountry.Equals(GameManage.instance.nameCountryNOTICS[i]))
+            {
+                if (GameManage.instance.powerCountryNOTICS > GameManage.instance.powerOurCountry)
+                {
+                    GameManage.instance.battleWon = false;
+                }
+                else
+                {
+                    GameManage.instance.battleWon = true;
+                }
+            }
+        }
+        for (int i = 0; i < GameManage.instance.nameCountryPLUTORAN.Count; i++)
+        {
+            if (GameManage.instance.attackedCountry.Equals(GameManage.instance.nameCountryPLUTORAN[i]))
+            {
+                if (GameManage.instance.powerCountryPLUTORAN > GameManage.instance.powerOurCountry)
+                {
+                    GameManage.instance.battleWon = false;
+                }
+                else
+                {
+                    GameManage.instance.battleWon = true;
+                }
+            }
+        }
+        for (int i = 0; i < GameManage.instance.nameCountryPOLLON.Count; i++)
+        {
+            if (GameManage.instance.attackedCountry.Equals(GameManage.instance.nameCountryPOLLON[i]))
+            {
+                if (GameManage.instance.powerCountryPOLLON > GameManage.instance.powerOurCountry)
+                {
+                    GameManage.instance.battleWon = false;
+                }
+                else
+                {
+                    GameManage.instance.battleWon = true;
+                }
+            }
+        }
+        for (int i = 0; i < GameManage.instance.nameCountryUNERIA.Count; i++)
+        {
+            if (GameManage.instance.attackedCountry.Equals(GameManage.instance.nameCountryUNERIA[i]))
+            {
+                if (GameManage.instance.powerCountryUNERIA > GameManage.instance.powerOurCountry)
+                {
+                    GameManage.instance.battleWon = false;
+                }
+                else
+                {
+                    GameManage.instance.battleWon = true;
+                }
+            }
+        }
+        for (int i = 0; i < GameManage.instance.nameCountryUTOCAR.Count; i++)
+        {
+            if (GameManage.instance.attackedCountry.Equals(GameManage.instance.nameCountryUTOCAR[i]))
+            {
+                if (GameManage.instance.powerCountryUTOCAR > GameManage.instance.powerOurCountry)
+                {
+                    GameManage.instance.battleWon = false;
                 }
                 else
                 {

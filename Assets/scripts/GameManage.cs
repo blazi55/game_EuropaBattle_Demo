@@ -10,11 +10,15 @@ public class GameManage : MonoBehaviour
 {
     public static GameManage instance;
 
-    public List<string> nameCountry;
+    public List<string> nameOurCountry;
 
-    public List<string> nameCountryEnemy;
-
-    public List<string> nameCountryFriend;
+    public List<string> nameCountryORENBERG;
+    public List<string> nameCountryIMBERIAS;
+    public List<string> nameCountryUNERIA;
+    public List<string> nameCountryPOLLON;
+    public List<string> nameCountryNOTICS;
+    public List<string> nameCountryUTOCAR;
+    public List<string> nameCountryPLUTORAN;
 
     public string attackedCountry;
 
@@ -24,35 +28,39 @@ public class GameManage : MonoBehaviour
 
     public bool battleWon;
 
-    public int moneyReward;
+    public int countCity;
 
-    public int moneyBudget;
+    public int areaCountry;
 
-    public int powerCountry;
+    public int powerOurCountry;
 
-    public int startMoneyBudget;
+    public int startCountCity;
 
-    public int startMoneyReward;
+    public int startAreaCountry;
 
-    public int powerCountryFriend;
-
-    public int powerCountryEnemy;
-
-    public int allCostRegionEnemy;
-
-    public int allCostRegionFriend;
+    public int powerCountryORENBERG;
+    public int powerCountryIMBERIAS;
+    public int powerCountryUNERIA;
+    public int powerCountryPOLLON;
+    public int powerCountryNOTICS;
+    public int powerCountryUTOCAR;
+    public int powerCountryPLUTORAN;
 
     [System.Serializable]
     public class SaveData
     {
         public List<Country> countryList = new List<Country>();
-        public int current_moneyReward;
-        public int current_moneyBudget;
+        public int current_countCity;
+        public int current_areaCountry;
         public int current_powerCountry;
 
-        public List<string> nameCountry;
-        public List<string> nameCountryEnemy;
-        public List<string> nameCountryFriend;
+        public List<string> nameCountryORENBERG;
+        public List<string> nameCountryIMBERIAS;
+        public List<string> nameCountryUNERIA;
+        public List<string> nameCountryPOLLON;
+        public List<string> nameCountryNOTICS;
+        public List<string> nameCountryUTOCAR;
+        public List<string> nameCountryPLUTORAN;
     }
     
     void Awake()
@@ -76,10 +84,10 @@ public class GameManage : MonoBehaviour
                 .Add(CountryManager.instance.countries[i].GetComponent<CountryHandler>().country);
         }
 
-        saveData.current_moneyBudget = moneyBudget;
-        saveData.current_moneyReward = moneyReward;
-        powerCountry = (moneyReward + moneyBudget);
-        saveData.current_powerCountry = powerCountry;
+        saveData.current_countCity = countCity;
+        saveData.current_areaCountry = areaCountry;
+        powerOurCountry = (areaCountry + countCity);
+        saveData.current_powerCountry = powerOurCountry;
 
         BinaryFormatter binaryFormatter = new BinaryFormatter();
         FileStream fileStream = new FileStream(Application.persistentDataPath + "/SavedFile.octo", FileMode.Create);
@@ -109,9 +117,9 @@ public class GameManage : MonoBehaviour
                 }
             }
 
-            moneyBudget = saveData.current_moneyBudget;
-            moneyReward = saveData.current_moneyReward;
-            powerCountry = saveData.current_powerCountry;
+            countCity = saveData.current_countCity;
+            areaCountry = saveData.current_areaCountry;
+            powerOurCountry = saveData.current_powerCountry;
 
             CountryManager.instance.TintCounteries();
             print("Loaded");
@@ -127,9 +135,9 @@ public class GameManage : MonoBehaviour
         if (File.Exists(Application.persistentDataPath + "/SavedFile.octo"))
         {
             Loading();
-            moneyBudget = startMoneyBudget;
-            moneyReward = startMoneyReward;
-            powerCountry = (moneyBudget + moneyReward);
+            countCity = startCountCity;
+            areaCountry = startAreaCountry;
+            powerOurCountry = (countCity + areaCountry);
 
             File.Delete(Application.persistentDataPath + "/SavedFile.octo");
             print("Deleted Saved File");
