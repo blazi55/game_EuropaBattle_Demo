@@ -23,12 +23,14 @@ public class CountryManager : MonoBehaviour
         attackPanel.SetActive(false);
 
         AddCountryData();
+
+        WonBattle();
+
+        LostBattle();
+
         AddGameNamesCountries();
 
         SetPowerCountry();
-
-        WonBattle();
-        LostBattle();
 
         GameManage.instance.Saving();
     }
@@ -48,31 +50,31 @@ public class CountryManager : MonoBehaviour
             }
             else if (countryHandler.country.countryName == Country.countriesNames.ORENBERG)
             {
-                GameManage.instance.powerCountryORENBERG = (countryHandler.country.areaCountry + countryHandler.country.countCity);
+                GameManage.instance.powerCountryORENBERG = (countryHandler.country.areaCountry + (120 * countryHandler.country.countCity));
             }
             else if (countryHandler.country.countryName == Country.countriesNames.PLUTORAN)
             {
-                GameManage.instance.powerCountryPLUTORAN = (countryHandler.country.areaCountry + countryHandler.country.countCity);
+                GameManage.instance.powerCountryPLUTORAN = (countryHandler.country.areaCountry + (120 * countryHandler.country.countCity));
             }
             else if (countryHandler.country.countryName == Country.countriesNames.POLLON)
             {
-                GameManage.instance.powerCountryPOLLON = (countryHandler.country.areaCountry + countryHandler.country.countCity);
+                GameManage.instance.powerCountryPOLLON = (countryHandler.country.areaCountry + (80 * countryHandler.country.countCity));
             }
             else if (countryHandler.country.countryName == Country.countriesNames.UNERIA)
             {
-                GameManage.instance.powerCountryUNERIA = (countryHandler.country.areaCountry + countryHandler.country.countCity);
+                GameManage.instance.powerCountryUNERIA = (countryHandler.country.areaCountry + (110 * countryHandler.country.countCity));
             }
             else if (countryHandler.country.countryName == Country.countriesNames.UTOCAR)
             {
-                GameManage.instance.powerCountryUTOCAR = (countryHandler.country.areaCountry + countryHandler.country.countCity);
+                GameManage.instance.powerCountryUTOCAR = (countryHandler.country.areaCountry + (100 * countryHandler.country.countCity));
             }
             else if (countryHandler.country.countryName == Country.countriesNames.NOTICS)
             {
-                GameManage.instance.powerCountryNOTICS = (countryHandler.country.areaCountry + countryHandler.country.countCity);
+                GameManage.instance.powerCountryNOTICS = (countryHandler.country.areaCountry + (80 * countryHandler.country.countCity));
             }
             else if (countryHandler.country.countryName == Country.countriesNames.IMBERIAS)
             {
-                GameManage.instance.powerCountryIMBERIAS = (countryHandler.country.areaCountry + countryHandler.country.countCity);
+                GameManage.instance.powerCountryIMBERIAS = (countryHandler.country.areaCountry + (100 * countryHandler.country.countCity));
             }
         }
     }
@@ -349,7 +351,7 @@ public class CountryManager : MonoBehaviour
     {
         GameManage.instance.DeleteSavedFile();
         GameManage.instance.areaCountry =  GameManage.instance.startAreaCountry;
-        GameManage.instance.countCity = GameManage.instance.startCountCity; ;
+        GameManage.instance.countCity = GameManage.instance.startCountCity;
         attackPanel.SetActive(false);
         ActiveCountries();
     }
@@ -360,5 +362,6 @@ public class CountryManager : MonoBehaviour
         {
             SceneManager.LoadScene("FightSimulator");
         }
+        GameManage.instance.Loading();
     }
 }

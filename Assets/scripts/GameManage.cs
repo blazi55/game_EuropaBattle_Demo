@@ -86,7 +86,7 @@ public class GameManage : MonoBehaviour
 
         saveData.current_countCity = countCity;
         saveData.current_areaCountry = areaCountry;
-        powerOurCountry = (areaCountry + countCity);
+        powerOurCountry = (areaCountry + (20 * countCity));
         saveData.current_powerCountry = powerOurCountry;
 
         BinaryFormatter binaryFormatter = new BinaryFormatter();
@@ -134,10 +134,6 @@ public class GameManage : MonoBehaviour
     {
         if (File.Exists(Application.persistentDataPath + "/SavedFile.octo"))
         {
-            Loading();
-            countCity = startCountCity;
-            areaCountry = startAreaCountry;
-            powerOurCountry = (countCity + areaCountry);
 
             File.Delete(Application.persistentDataPath + "/SavedFile.octo");
             print("Deleted Saved File");
