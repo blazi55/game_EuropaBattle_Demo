@@ -134,7 +134,7 @@ public class GameManage : MonoBehaviour
     {
         if (File.Exists(Application.persistentDataPath + "/SavedFile.octo"))
         {
-
+            DataManager.Main.Start = false;
             File.Delete(Application.persistentDataPath + "/SavedFile.octo");
             print("Deleted Saved File");
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);

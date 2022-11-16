@@ -1,14 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class CountryManager : MonoBehaviour
 {
     public static CountryManager instance;
 
     public GameObject attackPanel;
+    public GameObject endPanel;
+    public GameObject startPanel;
 
     public List<GameObject> countries = new List<GameObject>();
 
@@ -19,8 +23,17 @@ public class CountryManager : MonoBehaviour
 
     void Start()
     {
-        ActiveCountries();
+        print("Game Start " +  DataManager.Main.Start);
+        startPanel.SetActive(false);
         attackPanel.SetActive(false);
+        endPanel.SetActive(false);
+
+        if (DataManager.Main.Start == false)
+        {
+            ShowStartPanel();
+        }
+
+        ActiveCountries();
 
         AddCountryData();
 
@@ -37,13 +50,11 @@ public class CountryManager : MonoBehaviour
 
     public void SetPowerCountry()
     {
-        GameManage.instance.powerOurCountry = 0;
-
-        if(GameManage.instance.powerOurCountry == 0)
         for (int i = 0; i < countries.Count; i++)
         {
             CountryHandler countryHandler = countries[i].GetComponent<CountryHandler>();
-            if (countryHandler.country.countryName == Country.countriesNames.WALAH)
+            if (countryHandler.country.countryName == Country.countriesNames.WALAH &&
+                GameManage.instance.nameOurCountry.Count == 1)
             {
                GameManage.instance.startAreaCountry = countryHandler.country.areaCountry;
                GameManage.instance.startCountCity = countryHandler.country.countCity;
@@ -84,10 +95,14 @@ public class CountryManager : MonoBehaviour
         if (GameManage.instance.battleHasEnded && GameManage.instance.battleWon)
         {
             CountryHandler count = GameObject.Find(GameManage.instance.attackedCountry).GetComponent<CountryHandler>();
+            string temporaryNameCountry = " (" + count.country.countryName.ToString() + " ) ";
             count.country.countryName = Country.countriesNames.WALAH;
             GameManage.instance.countCity += count.country.countCity;
             GameManage.instance.areaCountry += count.country.areaCountry;
             GameManage.instance.powerOurCountry += count.country.powerCountry;
+            DataManager.Main.CountriesCollectionTimes.Add(GameManage.instance.attackedCountry + " " +
+                temporaryNameCountry, Time.time);
+            print(DataManager.Main.CountriesCollectionTimes);
             TintCounteries();
         }
     }
@@ -287,31 +302,59 @@ public class CountryManager : MonoBehaviour
         }
     }
 
-    public void ShowEndWonPanel()
+    public void ShowStartPanel()
     {
         DisableCountries();
-        attackPanel.SetActive(true);
-        AttackPanel gui = attackPanel.GetComponent<AttackPanel>();
-        gui.titleText.text = "We have all the world!";
-        gui.descriptionText.text = "";
-        gui.powerCountry.text = "+ " + GameManage.instance.powerOurCountry.ToString();
-        gui.cityOurCountry.text = GameManage.instance.countCity.ToString();
-        gui.powerAnotherCountry.text = "+ 0";
+        startPanel.SetActive(true);
+        attackPanel.SetActive(false);
+        StartPanel gui = startPanel.GetComponent<StartPanel>();
+        gui.titleText.text = "Welcome in Typerian War!";
+        gui.startGameText.text = "Start!";
+        DataManager.Main.Start = true;
     }
 
-    public void ShowEndLostPanel()
+    public void ShowEndGamePanel()
     {
         DisableCountries();
-        attackPanel.SetActive(true);
-        AttackPanel gui = attackPanel.GetComponent<AttackPanel>();
-        gui.titleText.text = "We are lost!";
-        gui.descriptionText.text = "Our Country is dead";
-        gui.powerCountry.text = "";
-        gui.cityOurCountry.text = GameManage.instance.countCity.ToString();
-        gui.powerAnotherCountry.text = "";
+        endPanel.SetActive(true);
+
+        SummarizePanel gui = endPanel.GetComponent<SummarizePanel>();
+        if (GameManage.instance.nameOurCountry.Count == 8)
+        {
+            gui.description.text = "Victory!";
+        } else if (GameManage.instance.nameOurCountry.Count == 0)
+        {
+            gui.description.text = "You lost!";
+        }
+
+        if (DataManager.Main.CountriesCollectionTimes.Count != 0)
+        {
+            string result = DataManager.Main.CountriesCollectionTimes
+            .OrderBy(entry => entry.Value)
+            .Select(entry =>
+                $"{entry.Key}:\t{System.TimeSpan.FromSeconds(entry.Value):g}")
+            .Aggregate((line1, line2) => $"{line1}\n{line2}");
+
+            FileStream file = new FileStream("C:/Users/user/Desktop/Game/Fiction World War/result.txt", FileMode.OpenOrCreate);
+            StreamWriter stream = new StreamWriter(file);
+            stream.Write(result);
+            stream.Close();
+            file.Close();
+
+            if (result != null)
+            {
+                gui.resultGame.text = result;
+            }
+            else
+            {
+                gui.resultGame.text = "Null";
+            }
+        }
     }
 
-    public void ShowPanelAttack(string title, string description, int cityOtherCountry, int cityOurCountry, int powerOurCountry, int powerAnotherCountry)
+    public void ShowPanelAttack(string title, string description, int cityOtherCountry,
+        int cityOurCountry, int powerOurCountry, int powerAnotherCountry, int areaOurCountry,
+        int areaOtherCountry)
     {
         DisableCountries();
         attackPanel.SetActive(true);
@@ -323,6 +366,8 @@ public class CountryManager : MonoBehaviour
         gui.cityOurCountry.text = "+ " + cityOurCountry.ToString();
         gui.powerCountry.text = "+ " + powerOurCountry.ToString();
         gui.powerAnotherCountry.text = "+ " + powerAnotherCountry.ToString();
+        gui.areaOurCountry.text = "+ " + areaOurCountry.ToString();
+        gui.areaOtherCountry.text = "+ " + areaOtherCountry.ToString();
     }
 
     public void DisableCountries()
@@ -341,6 +386,12 @@ public class CountryManager : MonoBehaviour
         }
     }
 
+    public void DisableStartGame()
+    {
+        startPanel.SetActive(false);
+        DataManager.Main.CountriesCollectionTimes.Add("Start Game: ", Time.time);
+    }
+
     public void DisablePanelAttack()
     {
         attackPanel.SetActive(false);
@@ -352,8 +403,8 @@ public class CountryManager : MonoBehaviour
         GameManage.instance.DeleteSavedFile();
         GameManage.instance.areaCountry =  GameManage.instance.startAreaCountry;
         GameManage.instance.countCity = GameManage.instance.startCountCity;
-        attackPanel.SetActive(false);
-        ActiveCountries();
+        DataManager.Main.CountriesCollectionTimes.Clear();
+        DataManager.Main.Start = false;
     }
 
     public void StartFight()

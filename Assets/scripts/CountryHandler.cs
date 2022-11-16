@@ -61,107 +61,115 @@ public class CountryHandler : MonoBehaviour {
         { 
            if (GameManage.instance.nameOurCountry.Count.Equals(8))
            {
-               CountryManager.instance.ShowEndWonPanel();
+               CountryManager.instance.ShowEndGamePanel();
            } 
            else
            {
                CountryManager.instance.ShowPanelAttack("Change our Country!", "This Country is owned " +
-               country.countryName.ToString() + " . Are you sure? Do you want attack?"
-               , country.countCity, GameManage.instance.countCity, GameManage.instance.powerOurCountry, country.powerCountry);
+               country.countryName.ToString() + ". Are you sure? Do you want attack?"
+               , country.countCity, GameManage.instance.countCity, GameManage.instance.powerOurCountry, country.powerCountry,
+               GameManage.instance.areaCountry, country.areaCountry);
            }
             
         } else if (Country.countriesNames.PLUTORAN == country.countryName)
         {
             if (GameManage.instance.nameOurCountry.Count.Equals(0))
             {
-                CountryManager.instance.ShowEndLostPanel();
+                CountryManager.instance.ShowEndGamePanel();
             }
             else
             {
                 CountryManager.instance.ShowPanelAttack("Start War!", "This Country is owned " +
-                country.countryName.ToString() + " . Are you sure? Do you want attack?"
-                , country.countCity, GameManage.instance.countCity, GameManage.instance.powerOurCountry, GameManage.instance.powerCountryPLUTORAN);
+                country.countryName.ToString() + ". Are you sure? Do you want attack?"
+                , country.countCity, GameManage.instance.countCity, GameManage.instance.powerOurCountry,
+                GameManage.instance.powerCountryPLUTORAN, GameManage.instance.areaCountry, country.areaCountry);
             }
         } else if (Country.countriesNames.ORENBERG == country.countryName)
         {
             if (GameManage.instance.nameOurCountry.Count.Equals(0))
             {
-                CountryManager.instance.ShowEndLostPanel();
+                CountryManager.instance.ShowEndGamePanel();
 
             }
             else
             {
                 CountryManager.instance.ShowPanelAttack("Start War!", "This Country is owned " +
-                country.countryName.ToString() + " . Are you sure? Do you want attack?"
-                , country.countCity, GameManage.instance.countCity, GameManage.instance.powerOurCountry, GameManage.instance.powerCountryORENBERG);
+                country.countryName.ToString() + ". Are you sure? Do you want attack?"
+                , country.countCity, GameManage.instance.countCity, GameManage.instance.powerOurCountry,
+                GameManage.instance.powerCountryORENBERG, GameManage.instance.areaCountry, country.areaCountry);
             }
         } else if (Country.countriesNames.POLLON == country.countryName)
         {
             if (GameManage.instance.nameOurCountry.Count.Equals(0))
             {
-                CountryManager.instance.ShowEndLostPanel();
+                CountryManager.instance.ShowEndGamePanel();
 
             }
             else
             {
                 CountryManager.instance.ShowPanelAttack("Start War!", "This Country is owned " +
-                country.countryName.ToString() + " . Are you sure? Do you want attack?"
-                , country.countCity, GameManage.instance.countCity, GameManage.instance.powerOurCountry, GameManage.instance.powerCountryPOLLON);
+                country.countryName.ToString() + ". Are you sure? Do you want attack?"
+                , country.countCity, GameManage.instance.countCity, GameManage.instance.powerOurCountry,
+                GameManage.instance.powerCountryPOLLON, GameManage.instance.areaCountry, country.areaCountry);
             }
         } else if (Country.countriesNames.UNERIA == country.countryName)
         {
             if (GameManage.instance.nameOurCountry.Count.Equals(0))
             {
-                CountryManager.instance.ShowEndLostPanel();
+                CountryManager.instance.ShowEndGamePanel();
 
             }
             else
             {
                 CountryManager.instance.ShowPanelAttack("Start War!", "This Country is owned " +
-                country.countryName.ToString() + " . Are you sure? Do you want attack?"
-                , country.countCity, GameManage.instance.countCity, GameManage.instance.powerOurCountry, GameManage.instance.powerCountryUNERIA);
+                country.countryName.ToString() + ". Are you sure? Do you want attack?"
+                , country.countCity, GameManage.instance.countCity, GameManage.instance.powerOurCountry,
+                GameManage.instance.powerCountryUNERIA, GameManage.instance.areaCountry, country.areaCountry);
             }
         }
         else if (Country.countriesNames.IMBERIAS == country.countryName)
         {
             if (GameManage.instance.nameOurCountry.Count.Equals(0))
             {
-                CountryManager.instance.ShowEndLostPanel();
+                CountryManager.instance.ShowEndGamePanel();
 
             }
             else
             {
                 CountryManager.instance.ShowPanelAttack("Start War!", "This Country is owned " +
-                country.countryName.ToString() + " . Are you sure? Do you want attack?"
-                , country.countCity, GameManage.instance.countCity, GameManage.instance.powerOurCountry, GameManage.instance.powerCountryIMBERIAS);
+                country.countryName.ToString() + ". Are you sure? Do you want attack?"
+                , country.countCity, GameManage.instance.countCity, GameManage.instance.powerOurCountry,
+                GameManage.instance.powerCountryIMBERIAS, GameManage.instance.areaCountry, country.areaCountry);
             }
         }
         else if (Country.countriesNames.NOTICS == country.countryName)
         {
             if (GameManage.instance.nameOurCountry.Count.Equals(0))
             {
-                CountryManager.instance.ShowEndLostPanel();
+                CountryManager.instance.ShowEndGamePanel();
 
             }
             else
             {
                 CountryManager.instance.ShowPanelAttack("Start War!", "This Country is owned " +
-                country.countryName.ToString() + " . Are you sure? Do you want attack?"
-                , country.countCity, GameManage.instance.countCity, GameManage.instance.powerOurCountry, GameManage.instance.powerCountryNOTICS);
+                country.countryName.ToString() + ". Are you sure? Do you want attack?"
+                , country.countCity, GameManage.instance.countCity, GameManage.instance.powerOurCountry,
+                GameManage.instance.powerCountryNOTICS, GameManage.instance.areaCountry, country.areaCountry);
             }
         }
         else if (Country.countriesNames.UTOCAR == country.countryName)
         {
             if (GameManage.instance.nameOurCountry.Count.Equals(0))
             {
-                CountryManager.instance.ShowEndLostPanel();
+                CountryManager.instance.ShowEndGamePanel();
 
             }
             else
             {
                 CountryManager.instance.ShowPanelAttack("Start War!", "This Country is owned " +
-                country.countryName.ToString() + " . Are you sure? Do you want attack?"
-                , country.countCity, GameManage.instance.countCity, GameManage.instance.powerOurCountry, GameManage.instance.powerCountryUTOCAR);
+                country.countryName.ToString() + ". Are you sure? Do you want attack?"
+                , country.countCity, GameManage.instance.countCity, GameManage.instance.powerOurCountry,
+                GameManage.instance.powerCountryUTOCAR, GameManage.instance.areaCountry, country.areaCountry);
             }
         }
         GameManage.instance.attackedCountry = country.name;

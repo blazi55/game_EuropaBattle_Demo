@@ -11,5 +11,7 @@ public class AttackPanel : MonoBehaviour
     public Text descriptionText;
     public Text powerCountry;
     public Text powerAnotherCountry;
+    public Text areaOurCountry;
+    public Text areaOtherCountry;
 
 }
