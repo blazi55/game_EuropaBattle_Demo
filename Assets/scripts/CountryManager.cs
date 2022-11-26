@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.IO;
+using UnityEngine.EventSystems;
 
 public class CountryManager : MonoBehaviour
 {
@@ -23,17 +24,14 @@ public class CountryManager : MonoBehaviour
 
     void Start()
     {
-        print("Game Start " +  DataManager.Main.Start);
         startPanel.SetActive(false);
         attackPanel.SetActive(false);
         endPanel.SetActive(false);
 
         if (DataManager.Main.Start == false)
         {
-            ShowStartPanel();
+           ShowStartPanel();
         }
-
-        ActiveCountries();
 
         AddCountryData();
 
@@ -53,39 +51,39 @@ public class CountryManager : MonoBehaviour
         for (int i = 0; i < countries.Count; i++)
         {
             CountryHandler countryHandler = countries[i].GetComponent<CountryHandler>();
-            if (countryHandler.country.countryName == Country.countriesNames.WALAH &&
+            if (countryHandler.country.countryName == Country.countriesNames.RESPUBLICA &&
                 GameManage.instance.nameOurCountry.Count == 1)
             {
                GameManage.instance.startAreaCountry = countryHandler.country.areaCountry;
                GameManage.instance.startCountCity = countryHandler.country.countCity;
             }
-            else if (countryHandler.country.countryName == Country.countriesNames.ORENBERG)
+            else if (countryHandler.country.countryName == Country.countriesNames.PRODIGALIA)
             {
-                GameManage.instance.powerCountryORENBERG = (countryHandler.country.areaCountry + (120 * countryHandler.country.countCity));
+                GameManage.instance.powerCountryORENBERG = (countryHandler.country.areaCountry + (550 * countryHandler.country.countCity));
             }
-            else if (countryHandler.country.countryName == Country.countriesNames.PLUTORAN)
+            else if (countryHandler.country.countryName == Country.countriesNames.VENEREA)
             {
-                GameManage.instance.powerCountryPLUTORAN = (countryHandler.country.areaCountry + (120 * countryHandler.country.countCity));
+                GameManage.instance.powerCountryPLUTORAN = (countryHandler.country.areaCountry + (750 * countryHandler.country.countCity));
             }
-            else if (countryHandler.country.countryName == Country.countriesNames.POLLON)
+            else if (countryHandler.country.countryName == Country.countriesNames.BIBONIA)
             {
-                GameManage.instance.powerCountryPOLLON = (countryHandler.country.areaCountry + (80 * countryHandler.country.countCity));
+                GameManage.instance.powerCountryPOLLON = (countryHandler.country.areaCountry + (90 * countryHandler.country.countCity));
             }
-            else if (countryHandler.country.countryName == Country.countriesNames.UNERIA)
+            else if (countryHandler.country.countryName == Country.countriesNames.LUSORIA)
             {
-                GameManage.instance.powerCountryUNERIA = (countryHandler.country.areaCountry + (110 * countryHandler.country.countCity));
+                GameManage.instance.powerCountryUNERIA = (countryHandler.country.areaCountry + (650 * countryHandler.country.countCity));
             }
-            else if (countryHandler.country.countryName == Country.countriesNames.UTOCAR)
+            else if (countryHandler.country.countryName == Country.countriesNames.REGNUM)
             {
-                GameManage.instance.powerCountryUTOCAR = (countryHandler.country.areaCountry + (100 * countryHandler.country.countCity));
+                GameManage.instance.powerCountryUTOCAR = (countryHandler.country.areaCountry + (565 * countryHandler.country.countCity));
             }
-            else if (countryHandler.country.countryName == Country.countriesNames.NOTICS)
+            else if (countryHandler.country.countryName == Country.countriesNames.STOMACHI)
             {
                 GameManage.instance.powerCountryNOTICS = (countryHandler.country.areaCountry + (80 * countryHandler.country.countCity));
             }
-            else if (countryHandler.country.countryName == Country.countriesNames.IMBERIAS)
+            else if (countryHandler.country.countryName == Country.countriesNames.MAMONIA)
             {
-                GameManage.instance.powerCountryIMBERIAS = (countryHandler.country.areaCountry + (100 * countryHandler.country.countCity));
+                GameManage.instance.powerCountryIMBERIAS = (countryHandler.country.areaCountry + (285 * countryHandler.country.countCity));
             }
         }
     }
@@ -96,10 +94,9 @@ public class CountryManager : MonoBehaviour
         {
             CountryHandler count = GameObject.Find(GameManage.instance.attackedCountry).GetComponent<CountryHandler>();
             string temporaryNameCountry = " (" + count.country.countryName.ToString() + " ) ";
-            count.country.countryName = Country.countriesNames.WALAH;
+            count.country.countryName = Country.countriesNames.RESPUBLICA;
             GameManage.instance.countCity += count.country.countCity;
             GameManage.instance.areaCountry += count.country.areaCountry;
-            GameManage.instance.powerOurCountry += count.country.powerCountry;
             DataManager.Main.CountriesCollectionTimes.Add(GameManage.instance.attackedCountry + " " +
                 temporaryNameCountry, Time.time);
             print(DataManager.Main.CountriesCollectionTimes);
@@ -117,62 +114,60 @@ public class CountryManager : MonoBehaviour
             {
                 number = Random.Range(0, GameManage.instance.nameOurCountry.Count);
             }
-            print(number + "Lost");
-            print(GameManage.instance.nameOurCountry[number] + "Lost");
 
-            if (count.country.countryName == Country.countriesNames.ORENBERG)
+            if (count.country.countryName == Country.countriesNames.PRODIGALIA)
             {
                 CountryHandler result = GameObject.Find(GameManage.instance.nameOurCountry[number]).GetComponent<CountryHandler>();
-                result.country.countryName = Country.countriesNames.ORENBERG;
+                result.country.countryName = Country.countriesNames.PRODIGALIA;
                 GameManage.instance.nameCountryORENBERG.Add(GameManage.instance.nameOurCountry[number]);
                 GameManage.instance.nameCountryORENBERG.Remove(GameManage.instance.nameOurCountry[number]);
                 print(GameManage.instance.powerOurCountry);
                 TintCounteries();
             }
-            else if (count.country.countryName == Country.countriesNames.PLUTORAN)
+            else if (count.country.countryName == Country.countriesNames.VENEREA)
             {
                 CountryHandler result = GameObject.Find(GameManage.instance.nameOurCountry[number]).GetComponent<CountryHandler>();
-                result.country.countryName = Country.countriesNames.PLUTORAN;
+                result.country.countryName = Country.countriesNames.VENEREA;
                 GameManage.instance.nameCountryPLUTORAN.Add(GameManage.instance.nameOurCountry[number]);
                 GameManage.instance.nameCountryPLUTORAN.Remove(GameManage.instance.nameOurCountry[number]);
                 TintCounteries();
             }
-            else if (count.country.countryName == Country.countriesNames.UTOCAR)
+            else if (count.country.countryName == Country.countriesNames.REGNUM)
             {
                 CountryHandler result = GameObject.Find(GameManage.instance.nameOurCountry[number]).GetComponent<CountryHandler>();
-                result.country.countryName = Country.countriesNames.UTOCAR;
+                result.country.countryName = Country.countriesNames.REGNUM;
                 GameManage.instance.nameCountryUTOCAR.Add(GameManage.instance.nameOurCountry[number]);
                 GameManage.instance.nameCountryUTOCAR.Remove(GameManage.instance.nameOurCountry[number]);
                 TintCounteries();
             }
-            else if (count.country.countryName == Country.countriesNames.UNERIA)
+            else if (count.country.countryName == Country.countriesNames.LUSORIA)
             {
                 CountryHandler result = GameObject.Find(GameManage.instance.nameOurCountry[number]).GetComponent<CountryHandler>();
-                result.country.countryName = Country.countriesNames.UNERIA;
+                result.country.countryName = Country.countriesNames.LUSORIA;
                 GameManage.instance.nameCountryUNERIA.Add(GameManage.instance.nameOurCountry[number]);
                 GameManage.instance.nameCountryUNERIA.Remove(GameManage.instance.nameOurCountry[number]);
                 TintCounteries();
             }
-            else if (count.country.countryName == Country.countriesNames.NOTICS)
+            else if (count.country.countryName == Country.countriesNames.STOMACHI)
             {
                 CountryHandler result = GameObject.Find(GameManage.instance.nameOurCountry[number]).GetComponent<CountryHandler>();
-                result.country.countryName = Country.countriesNames.NOTICS;
+                result.country.countryName = Country.countriesNames.STOMACHI;
                 GameManage.instance.nameCountryNOTICS.Add(GameManage.instance.nameOurCountry[number]);
                 GameManage.instance.nameCountryNOTICS.Remove(GameManage.instance.nameOurCountry[number]);
                 TintCounteries();
             }
-            else if (count.country.countryName == Country.countriesNames.POLLON)
+            else if (count.country.countryName == Country.countriesNames.BIBONIA)
             {
                 CountryHandler result = GameObject.Find(GameManage.instance.nameOurCountry[number]).GetComponent<CountryHandler>();
-                result.country.countryName = Country.countriesNames.POLLON;
+                result.country.countryName = Country.countriesNames.BIBONIA;
                 GameManage.instance.nameCountryPOLLON.Add(GameManage.instance.nameOurCountry[number]);
                 GameManage.instance.nameCountryPOLLON.Remove(GameManage.instance.nameOurCountry[number]);
                 TintCounteries();
             }
-            else if (count.country.countryName == Country.countriesNames.IMBERIAS)
+            else if (count.country.countryName == Country.countriesNames.MAMONIA)
             {
                 CountryHandler result = GameObject.Find(GameManage.instance.nameOurCountry[number]).GetComponent<CountryHandler>();
-                result.country.countryName = Country.countriesNames.IMBERIAS;
+                result.country.countryName = Country.countriesNames.MAMONIA;
                 GameManage.instance.nameCountryIMBERIAS.Add(GameManage.instance.nameOurCountry[number]);
                 GameManage.instance.nameCountryIMBERIAS.Remove(GameManage.instance.nameOurCountry[number]);
                 TintCounteries();
@@ -208,35 +203,35 @@ public class CountryManager : MonoBehaviour
         for (int i = 0; i < countries.Count; i++)
         {
             CountryHandler countryHandler = countries[i].GetComponent<CountryHandler>();
-            if (countryHandler.country.countryName == Country.countriesNames.WALAH)
+            if (countryHandler.country.countryName == Country.countriesNames.RESPUBLICA)
             {
                 nameOurCountry.Add(countryHandler.country.name);
             }
-            else if (countryHandler.country.countryName == Country.countriesNames.ORENBERG)
+            else if (countryHandler.country.countryName == Country.countriesNames.PRODIGALIA)
             {
                 nameCountryORENBERG.Add(countryHandler.country.name);
             }
-            else if (countryHandler.country.countryName == Country.countriesNames.PLUTORAN)
+            else if (countryHandler.country.countryName == Country.countriesNames.VENEREA)
             {
                 nameCountryPLUTORAN.Add(countryHandler.country.name);
             }
-            else if (countryHandler.country.countryName == Country.countriesNames.UTOCAR)
+            else if (countryHandler.country.countryName == Country.countriesNames.REGNUM)
             {
                 nameCountryUTOCAR.Add(countryHandler.country.name);
             }
-            else if (countryHandler.country.countryName == Country.countriesNames.UNERIA)
+            else if (countryHandler.country.countryName == Country.countriesNames.LUSORIA)
             {
                 nameCountryUNERIA.Add(countryHandler.country.name);
             }
-            else if (countryHandler.country.countryName == Country.countriesNames.NOTICS)
+            else if (countryHandler.country.countryName == Country.countriesNames.STOMACHI)
             {
                 nameCountryNOTICS.Add(countryHandler.country.name);
             }
-            else if (countryHandler.country.countryName == Country.countriesNames.POLLON)
+            else if (countryHandler.country.countryName == Country.countriesNames.BIBONIA)
             {
                 nameCountryPOLLON.Add(countryHandler.country.name);
             }
-            else if (countryHandler.country.countryName == Country.countriesNames.IMBERIAS)
+            else if (countryHandler.country.countryName == Country.countriesNames.MAMONIA)
             {
                 nameCountryIMBERIAS.Add(countryHandler.country.name);
             }
@@ -267,50 +262,39 @@ public class CountryManager : MonoBehaviour
         {
             CountryHandler countryHandler = countries[i].GetComponent<CountryHandler>();
 
-            if(countryHandler.country.countryName == Country.countriesNames.PLUTORAN)
+            if(countryHandler.country.countryName == Country.countriesNames.VENEREA)
             {
-                countryHandler.TintedCountry(new Color32(255, 204, 102, 155));
+                countryHandler.TintedCountry(new Color32(239, 140, 36, 155));
 
-            } else if (countryHandler.country.countryName == Country.countriesNames.WALAH)
+            } else if (countryHandler.country.countryName == Country.countriesNames.RESPUBLICA)
             {
-                countryHandler.TintedCountry(new Color32(0, 75, 0, 155));
+                countryHandler.TintedCountry(new Color32(70, 75, 0, 155));
 
-            } else if (countryHandler.country.countryName == Country.countriesNames.ORENBERG)
+            } else if (countryHandler.country.countryName == Country.countriesNames.PRODIGALIA)
             {
-                countryHandler.TintedCountry(new Color32(153, 153, 102, 155));
+                countryHandler.TintedCountry(new Color32(84, 113, 102, 155));
             }
-            else if (countryHandler.country.countryName == Country.countriesNames.NOTICS)
+            else if (countryHandler.country.countryName == Country.countriesNames.STOMACHI)
             {
-                countryHandler.TintedCountry(new Color32(0, 51, 204, 155));
+                countryHandler.TintedCountry(new Color32(0, 51, 133, 155));
             }
-            else if (countryHandler.country.countryName == Country.countriesNames.UTOCAR)
+            else if (countryHandler.country.countryName == Country.countriesNames.REGNUM)
             {
-                countryHandler.TintedCountry(new Color32(0, 204, 255, 155));
+                countryHandler.TintedCountry(new Color32(91, 173, 255, 155));
             }
-            else if (countryHandler.country.countryName == Country.countriesNames.IMBERIAS)
+            else if (countryHandler.country.countryName == Country.countriesNames.MAMONIA)
             {
-                countryHandler.TintedCountry(new Color32(255, 153, 0, 155));
+                countryHandler.TintedCountry(new Color32(210, 153, 0, 155));
             }
-            else if (countryHandler.country.countryName == Country.countriesNames.POLLON)
+            else if (countryHandler.country.countryName == Country.countriesNames.BIBONIA)
             {
-                countryHandler.TintedCountry(new Color32(204, 51, 255, 155));
+                countryHandler.TintedCountry(new Color32(204, 120, 255, 155));
             }
-            else if (countryHandler.country.countryName == Country.countriesNames.UNERIA)
+            else if (countryHandler.country.countryName == Country.countriesNames.LUSORIA)
             {
-                countryHandler.TintedCountry(new Color32(153, 102, 255, 155));
+                countryHandler.TintedCountry(new Color32(243, 102, 217, 155));
             }
         }
-    }
-
-    public void ShowStartPanel()
-    {
-        DisableCountries();
-        startPanel.SetActive(true);
-        attackPanel.SetActive(false);
-        StartPanel gui = startPanel.GetComponent<StartPanel>();
-        gui.titleText.text = "Welcome in Typerian War!";
-        gui.startGameText.text = "Start!";
-        DataManager.Main.Start = true;
     }
 
     public void ShowEndGamePanel()
@@ -335,7 +319,8 @@ public class CountryManager : MonoBehaviour
                 $"{entry.Key}:\t{System.TimeSpan.FromSeconds(entry.Value):g}")
             .Aggregate((line1, line2) => $"{line1}\n{line2}");
 
-            FileStream file = new FileStream("C:/Users/user/Desktop/Game/Fiction World War/result.txt", FileMode.OpenOrCreate);
+            FileStream file = new FileStream("C:/Users/user/Desktop/Game/Fiction World War/result.txt",
+                FileMode.OpenOrCreate);
             StreamWriter stream = new StreamWriter(file);
             stream.Write(result);
             stream.Close();
@@ -370,12 +355,22 @@ public class CountryManager : MonoBehaviour
         gui.areaOtherCountry.text = "+ " + areaOtherCountry.ToString();
     }
 
+    public void ShowStartPanel()
+    {
+        startPanel.SetActive(true);
+        StartPanel gui = startPanel.GetComponent<StartPanel>();
+        gui.titleText.text = "Welcome in Fictional World War!";
+        gui.startGameText.text = "Start!";
+        DataManager.Main.Start = true;
+    }
+
     public void DisableCountries()
     {
         for (int i = 0; i < countries.Count; i++)
         {
             countries[i].SetActive(false);
         }
+        print("Countries are enabled");
     }
 
     public void ActiveCountries()
@@ -389,7 +384,7 @@ public class CountryManager : MonoBehaviour
     public void DisableStartGame()
     {
         startPanel.SetActive(false);
-        DataManager.Main.CountriesCollectionTimes.Add("Start Game: ", Time.time);
+        DataManager.Main.CountriesCollectionTimes.Add("Start Game ", Time.time);
     }
 
     public void DisablePanelAttack()

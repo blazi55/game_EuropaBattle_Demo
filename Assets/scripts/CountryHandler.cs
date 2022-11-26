@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(PolygonCollider2D))]
 public class CountryHandler : MonoBehaviour {
@@ -22,13 +23,14 @@ public class CountryHandler : MonoBehaviour {
     void OnMouseEnter()
     {
         oldColor32 = spriteRenderer.color;
-        if (country.countryName == Country.countriesNames.WALAH)
+        if (country.countryName == Country.countriesNames.RESPUBLICA)
         {
-            hoverColor32 = new Color32(255, 255, 255, 190);
+            //hoverColor32 = new Color32(255, 255, 255, 120);
+            hoverColor32 = new Color32(oldColor32.r, oldColor32.g, oldColor32.b, 240);
             spriteRenderer.color = hoverColor32;
         } else
         {
-            hoverColor32 = new Color32(oldColor32.r, oldColor32.g, oldColor32.b, 210);
+            hoverColor32 = new Color32(oldColor32.r, oldColor32.g, oldColor32.b, 240);
             spriteRenderer.color = hoverColor32;
         }
     }
@@ -46,7 +48,10 @@ public class CountryHandler : MonoBehaviour {
 
     void OnMouseUpAsButton()
     {
-        ShowGUI();
+        if (!EventSystem.current.IsPointerOverGameObject())
+        {
+            ShowGUI();
+        }
 
     }
 
@@ -57,69 +62,51 @@ public class CountryHandler : MonoBehaviour {
 
     void ShowGUI()
     {
-        if (Country.countriesNames.WALAH == country.countryName)
+        if (GameManage.instance.nameOurCountry.Count.Equals(8) ||
+                GameManage.instance.nameOurCountry.Count.Equals(0))
+        {
+            CountryManager.instance.ShowEndGamePanel();
+        }
+        if (Country.countriesNames.RESPUBLICA == country.countryName)
         { 
-           if (GameManage.instance.nameOurCountry.Count.Equals(8))
+           if (!GameManage.instance.nameOurCountry.Count.Equals(8))
            {
-               CountryManager.instance.ShowEndGamePanel();
-           } 
-           else
-           {
-               CountryManager.instance.ShowPanelAttack("Change our Country!", "This Country is owned " +
+              CountryManager.instance.ShowPanelAttack("Change our Country!", "This Country is owned " +
                country.countryName.ToString() + ". Are you sure? Do you want attack?"
                , country.countCity, GameManage.instance.countCity, GameManage.instance.powerOurCountry, country.powerCountry,
                GameManage.instance.areaCountry, country.areaCountry);
            }
             
-        } else if (Country.countriesNames.PLUTORAN == country.countryName)
+        } else if (Country.countriesNames.VENEREA == country.countryName)
         {
-            if (GameManage.instance.nameOurCountry.Count.Equals(0))
-            {
-                CountryManager.instance.ShowEndGamePanel();
-            }
-            else
+            if (!GameManage.instance.nameOurCountry.Count.Equals(0))
             {
                 CountryManager.instance.ShowPanelAttack("Start War!", "This Country is owned " +
                 country.countryName.ToString() + ". Are you sure? Do you want attack?"
                 , country.countCity, GameManage.instance.countCity, GameManage.instance.powerOurCountry,
                 GameManage.instance.powerCountryPLUTORAN, GameManage.instance.areaCountry, country.areaCountry);
             }
-        } else if (Country.countriesNames.ORENBERG == country.countryName)
+        } else if (Country.countriesNames.PRODIGALIA == country.countryName)
         {
-            if (GameManage.instance.nameOurCountry.Count.Equals(0))
-            {
-                CountryManager.instance.ShowEndGamePanel();
-
-            }
-            else
+            if (!GameManage.instance.nameOurCountry.Count.Equals(0))
             {
                 CountryManager.instance.ShowPanelAttack("Start War!", "This Country is owned " +
                 country.countryName.ToString() + ". Are you sure? Do you want attack?"
                 , country.countCity, GameManage.instance.countCity, GameManage.instance.powerOurCountry,
                 GameManage.instance.powerCountryORENBERG, GameManage.instance.areaCountry, country.areaCountry);
             }
-        } else if (Country.countriesNames.POLLON == country.countryName)
+        } else if (Country.countriesNames.BIBONIA == country.countryName)
         {
-            if (GameManage.instance.nameOurCountry.Count.Equals(0))
-            {
-                CountryManager.instance.ShowEndGamePanel();
-
-            }
-            else
+            if (!GameManage.instance.nameOurCountry.Count.Equals(0))
             {
                 CountryManager.instance.ShowPanelAttack("Start War!", "This Country is owned " +
                 country.countryName.ToString() + ". Are you sure? Do you want attack?"
                 , country.countCity, GameManage.instance.countCity, GameManage.instance.powerOurCountry,
                 GameManage.instance.powerCountryPOLLON, GameManage.instance.areaCountry, country.areaCountry);
             }
-        } else if (Country.countriesNames.UNERIA == country.countryName)
+        } else if (Country.countriesNames.LUSORIA == country.countryName)
         {
-            if (GameManage.instance.nameOurCountry.Count.Equals(0))
-            {
-                CountryManager.instance.ShowEndGamePanel();
-
-            }
-            else
+            if (!GameManage.instance.nameOurCountry.Count.Equals(0))
             {
                 CountryManager.instance.ShowPanelAttack("Start War!", "This Country is owned " +
                 country.countryName.ToString() + ". Are you sure? Do you want attack?"
@@ -127,14 +114,9 @@ public class CountryHandler : MonoBehaviour {
                 GameManage.instance.powerCountryUNERIA, GameManage.instance.areaCountry, country.areaCountry);
             }
         }
-        else if (Country.countriesNames.IMBERIAS == country.countryName)
+        else if (Country.countriesNames.MAMONIA == country.countryName)
         {
-            if (GameManage.instance.nameOurCountry.Count.Equals(0))
-            {
-                CountryManager.instance.ShowEndGamePanel();
-
-            }
-            else
+            if (!GameManage.instance.nameOurCountry.Count.Equals(0))
             {
                 CountryManager.instance.ShowPanelAttack("Start War!", "This Country is owned " +
                 country.countryName.ToString() + ". Are you sure? Do you want attack?"
@@ -142,14 +124,9 @@ public class CountryHandler : MonoBehaviour {
                 GameManage.instance.powerCountryIMBERIAS, GameManage.instance.areaCountry, country.areaCountry);
             }
         }
-        else if (Country.countriesNames.NOTICS == country.countryName)
+        else if (Country.countriesNames.STOMACHI == country.countryName)
         {
-            if (GameManage.instance.nameOurCountry.Count.Equals(0))
-            {
-                CountryManager.instance.ShowEndGamePanel();
-
-            }
-            else
+            if (!GameManage.instance.nameOurCountry.Count.Equals(0))
             {
                 CountryManager.instance.ShowPanelAttack("Start War!", "This Country is owned " +
                 country.countryName.ToString() + ". Are you sure? Do you want attack?"
@@ -157,14 +134,9 @@ public class CountryHandler : MonoBehaviour {
                 GameManage.instance.powerCountryNOTICS, GameManage.instance.areaCountry, country.areaCountry);
             }
         }
-        else if (Country.countriesNames.UTOCAR == country.countryName)
+        else if (Country.countriesNames.REGNUM == country.countryName)
         {
-            if (GameManage.instance.nameOurCountry.Count.Equals(0))
-            {
-                CountryManager.instance.ShowEndGamePanel();
-
-            }
-            else
+            if (!GameManage.instance.nameOurCountry.Count.Equals(0))
             {
                 CountryManager.instance.ShowPanelAttack("Start War!", "This Country is owned " +
                 country.countryName.ToString() + ". Are you sure? Do you want attack?"

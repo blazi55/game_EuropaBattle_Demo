@@ -8,14 +8,14 @@ public class Country
     public string name;
     public enum countriesNames
     {
-        UNERIA,
-        IMBERIAS,
-        WALAH,
-        NOTICS,
-        ORENBERG,
-        PLUTORAN,
-        POLLON,
-        UTOCAR
+        LUSORIA,
+        MAMONIA,
+        RESPUBLICA,
+        STOMACHI,
+        PRODIGALIA,
+        VENEREA,
+        BIBONIA,
+        REGNUM
     }
 
     public countriesNames countryName;
