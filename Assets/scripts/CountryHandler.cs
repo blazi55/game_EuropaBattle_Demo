@@ -71,8 +71,8 @@ public class CountryHandler : MonoBehaviour {
         { 
            if (!GameManage.instance.nameOurCountry.Count.Equals(8))
            {
-              CountryManager.instance.ShowPanelAttack("Change our Country!", "This Country is owned " +
-               country.countryName.ToString() + ". Are you sure? Do you want attack?"
+              CountryManager.instance.ShowPanelAttack("Change our Country! " + 
+               country.countryName.ToString()
                , country.countCity, GameManage.instance.countCity, GameManage.instance.powerOurCountry, country.powerCountry,
                GameManage.instance.areaCountry, country.areaCountry);
            }
@@ -81,8 +81,8 @@ public class CountryHandler : MonoBehaviour {
         {
             if (!GameManage.instance.nameOurCountry.Count.Equals(0))
             {
-                CountryManager.instance.ShowPanelAttack("Start War!", "This Country is owned " +
-                country.countryName.ToString() + ". Are you sure? Do you want attack?"
+                CountryManager.instance.ShowPanelAttack("Start War! with "+
+                country.countryName.ToString()
                 , country.countCity, GameManage.instance.countCity, GameManage.instance.powerOurCountry,
                 GameManage.instance.powerCountryPLUTORAN, GameManage.instance.areaCountry, country.areaCountry);
             }
@@ -90,8 +90,8 @@ public class CountryHandler : MonoBehaviour {
         {
             if (!GameManage.instance.nameOurCountry.Count.Equals(0))
             {
-                CountryManager.instance.ShowPanelAttack("Start War!", "This Country is owned " +
-                country.countryName.ToString() + ". Are you sure? Do you want attack?"
+                CountryManager.instance.ShowPanelAttack("Start War! with " +
+                country.countryName.ToString()
                 , country.countCity, GameManage.instance.countCity, GameManage.instance.powerOurCountry,
                 GameManage.instance.powerCountryORENBERG, GameManage.instance.areaCountry, country.areaCountry);
             }
@@ -99,8 +99,8 @@ public class CountryHandler : MonoBehaviour {
         {
             if (!GameManage.instance.nameOurCountry.Count.Equals(0))
             {
-                CountryManager.instance.ShowPanelAttack("Start War!", "This Country is owned " +
-                country.countryName.ToString() + ". Are you sure? Do you want attack?"
+                CountryManager.instance.ShowPanelAttack("Start War! with " +
+                country.countryName.ToString()
                 , country.countCity, GameManage.instance.countCity, GameManage.instance.powerOurCountry,
                 GameManage.instance.powerCountryPOLLON, GameManage.instance.areaCountry, country.areaCountry);
             }
@@ -108,8 +108,8 @@ public class CountryHandler : MonoBehaviour {
         {
             if (!GameManage.instance.nameOurCountry.Count.Equals(0))
             {
-                CountryManager.instance.ShowPanelAttack("Start War!", "This Country is owned " +
-                country.countryName.ToString() + ". Are you sure? Do you want attack?"
+                CountryManager.instance.ShowPanelAttack("Start War! with " +
+                country.countryName.ToString()
                 , country.countCity, GameManage.instance.countCity, GameManage.instance.powerOurCountry,
                 GameManage.instance.powerCountryUNERIA, GameManage.instance.areaCountry, country.areaCountry);
             }
@@ -118,8 +118,8 @@ public class CountryHandler : MonoBehaviour {
         {
             if (!GameManage.instance.nameOurCountry.Count.Equals(0))
             {
-                CountryManager.instance.ShowPanelAttack("Start War!", "This Country is owned " +
-                country.countryName.ToString() + ". Are you sure? Do you want attack?"
+                CountryManager.instance.ShowPanelAttack("Start War! with " +
+                country.countryName.ToString()
                 , country.countCity, GameManage.instance.countCity, GameManage.instance.powerOurCountry,
                 GameManage.instance.powerCountryIMBERIAS, GameManage.instance.areaCountry, country.areaCountry);
             }
@@ -128,8 +128,8 @@ public class CountryHandler : MonoBehaviour {
         {
             if (!GameManage.instance.nameOurCountry.Count.Equals(0))
             {
-                CountryManager.instance.ShowPanelAttack("Start War!", "This Country is owned " +
-                country.countryName.ToString() + ". Are you sure? Do you want attack?"
+                CountryManager.instance.ShowPanelAttack("Start War! with " +
+                country.countryName.ToString()
                 , country.countCity, GameManage.instance.countCity, GameManage.instance.powerOurCountry,
                 GameManage.instance.powerCountryNOTICS, GameManage.instance.areaCountry, country.areaCountry);
             }
@@ -138,8 +138,8 @@ public class CountryHandler : MonoBehaviour {
         {
             if (!GameManage.instance.nameOurCountry.Count.Equals(0))
             {
-                CountryManager.instance.ShowPanelAttack("Start War!", "This Country is owned " +
-                country.countryName.ToString() + ". Are you sure? Do you want attack?"
+                CountryManager.instance.ShowPanelAttack("Start War! with " +
+                country.countryName.ToString()
                 , country.countCity, GameManage.instance.countCity, GameManage.instance.powerOurCountry,
                 GameManage.instance.powerCountryUTOCAR, GameManage.instance.areaCountry, country.areaCountry);
             }

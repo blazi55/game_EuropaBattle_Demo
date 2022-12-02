@@ -337,7 +337,7 @@ public class CountryManager : MonoBehaviour
         }
     }
 
-    public void ShowPanelAttack(string title, string description, int cityOtherCountry,
+    public void ShowPanelAttack(string title, int cityOtherCountry,
         int cityOurCountry, int powerOurCountry, int powerAnotherCountry, int areaOurCountry,
         int areaOtherCountry)
     {
@@ -346,7 +346,6 @@ public class CountryManager : MonoBehaviour
         AttackPanel gui = attackPanel.GetComponent<AttackPanel>();
         powerOurCountry = GameManage.instance.powerOurCountry;
         gui.titleText.text = title.ToString();
-        gui.descriptionText.text = description.ToString();
         gui.cityOtherCountry.text = "+ " + cityOtherCountry.ToString();
         gui.cityOurCountry.text = "+ " + cityOurCountry.ToString();
         gui.powerCountry.text = "+ " + powerOurCountry.ToString();
