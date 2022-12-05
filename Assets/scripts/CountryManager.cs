@@ -341,7 +341,7 @@ public class CountryManager : MonoBehaviour
         int cityOurCountry, int powerOurCountry, int powerAnotherCountry, int areaOurCountry,
         int areaOtherCountry)
     {
-        DisableCountries();
+        //DisableCountries();
         attackPanel.SetActive(true);
         AttackPanel gui = attackPanel.GetComponent<AttackPanel>();
         powerOurCountry = GameManage.instance.powerOurCountry;
@@ -369,7 +369,6 @@ public class CountryManager : MonoBehaviour
         {
             countries[i].SetActive(false);
         }
-        print("Countries are enabled");
     }
 
     public void ActiveCountries()
@@ -389,7 +388,7 @@ public class CountryManager : MonoBehaviour
     public void DisablePanelAttack()
     {
         attackPanel.SetActive(false);
-        ActiveCountries();
+        //ActiveCountries();
     }
 
     public void ResetGame()
