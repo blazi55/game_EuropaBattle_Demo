@@ -62,11 +62,7 @@ public class CountryHandler : MonoBehaviour {
 
     void ShowGUI()
     {
-        if (GameManage.instance.nameOurCountry.Count.Equals(8) ||
-                GameManage.instance.nameOurCountry.Count.Equals(0))
-        {
-            CountryManager.instance.ShowEndGamePanel();
-        }
+        
         if (Country.countriesNames.RESPUBLICA == country.countryName)
         { 
            if (!GameManage.instance.nameOurCountry.Count.Equals(8))

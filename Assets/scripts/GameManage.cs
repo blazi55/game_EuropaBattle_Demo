@@ -91,7 +91,7 @@ public class GameManage : MonoBehaviour
 
         BinaryFormatter binaryFormatter = new BinaryFormatter();
         FileStream fileStream = new FileStream(Application.persistentDataPath + "/SavedFile.octo", FileMode.Create);
-
+        print(Application.persistentDataPath + " / SavedFile.octo");
         binaryFormatter.Serialize(fileStream, saveData);
         fileStream.Close();
         print("Saved Game!");
@@ -134,10 +134,9 @@ public class GameManage : MonoBehaviour
     {
         if (File.Exists(Application.persistentDataPath + "/SavedFile.octo"))
         {
-            DataManager.Main.Start = false;
             File.Delete(Application.persistentDataPath + "/SavedFile.octo");
+            Application.Quit();
             print("Deleted Saved File");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }
